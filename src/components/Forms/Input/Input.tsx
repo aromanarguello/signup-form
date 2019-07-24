@@ -9,6 +9,7 @@ export interface IInputProps {
   role?: string
   type: string
   id?: string
+  value?: string
 }
 
 const StyledInput = styled.input``

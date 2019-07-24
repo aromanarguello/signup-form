@@ -5,6 +5,7 @@ import {
   CredentialsProvider,
   CrendentialsConsumer
 } from './context/CredentialsContext/Crendentials.context'
+import { useCredentials } from './hooks/useCredentials'
 import styled from 'styled-components'
 
 const StyledForm = styled(Form)`
@@ -24,35 +25,19 @@ const Input = styled(Form.Input)`
   margin: 10px;
 `
 
-const userData: IUser = {
-  username: '',
-  password: ''
-}
-
-interface IUser {
+type UserState = {
   username: string
   password: string
 }
 
-const reducer = (prevState: any, updatedProp: any) => ({
-  ...prevState,
-  ...updatedProp
-})
+interface ICredentials {
+  state: UserState
+  handleOnChange: (e?: Event) => React.KeyboardEventHandler<HTMLInputElement>
+}
 
 const App: React.FC = () => {
-  const [state, setState] = React.useReducer(reducer, userData)
+  const [state, handleChange]: any = useCredentials()
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) => {
-    e.preventDefault()
-    key === 'username'
-      ? setState({ username: e.target.value })
-      : setState({ password: e.target.value })
-  }
-
-  console.log(state)
   return (
     <Theme>
       <CredentialsProvider>
@@ -64,6 +49,7 @@ const App: React.FC = () => {
                 <Input
                   id="username"
                   type="text"
+                  value={state.username}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleChange(e, 'username')
                   }
@@ -73,6 +59,7 @@ const App: React.FC = () => {
                 <Label for="password">Password:</Label>
                 <Input
                   id="password"
+                  value={state.password}
                   type="password"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleChange(e, 'password')

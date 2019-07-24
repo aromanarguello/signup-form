@@ -3,9 +3,7 @@ import styled from 'styled-components'
 
 export interface IInputProps {
   onClick?: React.MouseEventHandler<HTMLInputElement>
-  onChange?: (
-    e: React.ChangeEvent
-  ) => React.KeyboardEventHandler<HTMLInputElement>
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onEnter?: React.KeyboardEventHandler<HTMLInputElement>
   placeholder?: string
   role?: string
